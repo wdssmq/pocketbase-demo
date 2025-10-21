@@ -9,7 +9,7 @@ import serve from "rollup-plugin-serve";
 // import copy from "rollup-plugin-copy";
 // import html from "rollup-plugin-html-string";
 // import md from "rollup-plugin-md";
-// import resolve from "@rollup/plugin-node-resolve";
+import resolve from "@rollup/plugin-node-resolve";
 
 import replace from "@rollup/plugin-replace";
 import dotenv from "dotenv";
@@ -39,7 +39,7 @@ const defConfig = {
             "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
             "process.env.DEMO_VAR": JSON.stringify(process.env.DEMO_VAR),
         }),
-        // resolve(),
+        resolve(),
         // md(),
         // html({
         //     include: "src/**/*.html",
