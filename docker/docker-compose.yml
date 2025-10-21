@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+    pocketbase:
+        image: ghcr.io/muchobien/pocketbase:latest
+        container_name: pocketbase
+        restart: unless-stopped
+        ports:
+            - 8090:8090
+        environment:
+            - PB_ADMIN_EMAIL=${PB_ADMIN_EMAIL:-admin@yourdomain.com}
+            - PB_ADMIN_PASSWORD=${PB_ADMIN_PASSWORD:-your-secure-password-here}
+        volumes:
+            - ./data/pb_data:/pb_data
+
+
+    # 详细信息请参考:
+    # muchobien/pocketbase-docker: Pocketbase docker image
+    # https://github.com/muchobien/pocketbase-docker
