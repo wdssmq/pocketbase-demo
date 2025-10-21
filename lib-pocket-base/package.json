@@ -1,0 +1,33 @@
+{
+    "name": "lib-pocket-base",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/lib-pocket-base.js",
+    "type": "module",
+    "extractCSS": true,
+    "scripts": {
+        "build": "rollup -c --environment NODE_ENV:prod",
+        "dev": "rollup -c -w --environment NODE_ENV:dev",
+        "demo": "live-server --watch=index.html,dist/*.js",
+        "lint": "eslint --ext .js,.mjs ."
+    },
+    "keywords": [
+        "lib",
+        "scripts",
+        "lib-scripts"
+    ],
+    "author": "wdssmq",
+    "license": "MIT",
+    "devDependencies": {
+        "@rollup/plugin-node-resolve": "^16.0.3",
+        "@rollup/plugin-replace": "^6.0.2",
+        "rollup": "^4.52.5",
+        "rollup-plugin-copy": "^3.5.0",
+        "rollup-plugin-html-string": "^1.0.1",
+        "rollup-plugin-livereload": "^2.0.5",
+        "rollup-plugin-md": "^1.0.1",
+        "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-serve": "^3.0.0",
+        "sass": "^1.93.2"
+    }
+}
