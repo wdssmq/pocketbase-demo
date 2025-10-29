@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "dist/lib-pocket-base.js",
+    "types": "dist/lib-pocket-base.d.ts",
     "type": "module",
     "extractCSS": true,
     "scripts": {
@@ -31,6 +32,7 @@
         "rollup-plugin-html-string": "^1.0.1",
         "rollup-plugin-livereload": "^2.0.5",
         "rollup-plugin-md": "^1.0.1",
+        "rollup-plugin-mv": "^0.0.2",
         "rollup-plugin-postcss": "^4.0.2",
         "rollup-plugin-serve": "^3.0.0",
         "sass": "^1.93.2",

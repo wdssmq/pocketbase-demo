@@ -5,6 +5,7 @@ const pkg = JSON.parse(readFileSync("./package.json"));
 import livereload from "rollup-plugin-livereload";
 import postcss from "rollup-plugin-postcss";
 import serve from "rollup-plugin-serve";
+import mv from "rollup-plugin-mv";
 import typescript from '@rollup/plugin-typescript';
 
 // import copy from "rollup-plugin-copy";
@@ -61,6 +62,10 @@ const coreConfig = {
     },
     plugins: [
         typescript({ tsconfig: './tsconfig.json' }),
+        mv({
+            src: 'dist/core.d.ts',
+            dest: pkg.types,
+        }),
     ],
 };
 
