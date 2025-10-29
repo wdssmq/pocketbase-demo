@@ -15,26 +15,23 @@ import typescript from '@rollup/plugin-typescript';
 import replace from "@rollup/plugin-replace";
 import dotenv from "dotenv";
 
-// 是否将 CSS 提取到单独文件
-const extractCSS = pkg.extractCSS ? `${pkg.name}.css` : false;
-
 // 加载 .env.dev（如果存在），并将其合并到 process.env
 const envFile = process.env.NODE_ENV === 'prod' ? '.env.prod' : '.env.dev';
 dotenv.config({ path: envFile });
 
 const defConfig = {
-    input: `src/${pkg.name}.ts`,
+    input: `src/test.ts`,
     output: {
-        file: `dist-test/${pkg.name}.js`,
+        file: `dist-test/test.js`,
         format: "umd",
         banner: "/* eslint-disable */\n",
         sourcemap: true,
     },
     plugins: [
         // 先用 typescript 插件把 TS 转为 JS
-        typescript({ tsconfig: './tsconfig.json' }),
+        typescript({ tsconfig: './tsconfig.test.json' }),
         postcss({
-            extract: extractCSS,
+            extract: "test.css",
         }),
         replace({
             preventAssignment: true,
@@ -56,9 +53,9 @@ const defConfig = {
 const coreConfig = {
     input: 'src/lib-core/core.ts',
     output: {
-        file: 'dist/lib-core.js',
+        file: pkg.main,
         format: 'umd',
-        name: 'lib-core',
+        name: 'libPocketBase',
         banner: "/* eslint-disable */\n",
         sourcemap: true,
     },

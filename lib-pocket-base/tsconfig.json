@@ -13,6 +13,6 @@
     // "skipLibCheck": true,
     "allowJs": false
   },
-  "include": ["src"],
+  "include": ["src/lib-core/*.ts"],
   "exclude": ["dist", "dist-test", "node_modules"]
 }
