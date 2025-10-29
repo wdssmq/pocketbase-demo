@@ -25,9 +25,8 @@ dotenv.config({ path: envFile });
 const defConfig = {
     input: `src/${pkg.name}.ts`,
     output: {
-        file: pkg.main,
+        file: `dist-test/${pkg.name}.js`,
         format: "umd",
-        name: pkg.moduleName,
         banner: "/* eslint-disable */\n",
         sourcemap: true,
     },
@@ -53,6 +52,21 @@ const defConfig = {
     ],
 };
 
+// 单独为 lib-core/core.ts 创建一个独立的构建配置
+const coreConfig = {
+    input: 'src/lib-core/core.ts',
+    output: {
+        file: 'dist/lib-core.js',
+        format: 'umd',
+        name: 'lib-core',
+        banner: "/* eslint-disable */\n",
+        sourcemap: true,
+    },
+    plugins: [
+        typescript({ tsconfig: './tsconfig.json' }),
+    ],
+};
+
 if (process.env.NODE_ENV !== "prod") {
     defConfig.plugins.push(
         serve(),
@@ -60,4 +74,4 @@ if (process.env.NODE_ENV !== "prod") {
     );
 }
 
-export default defConfig;
+export default [defConfig, coreConfig];
