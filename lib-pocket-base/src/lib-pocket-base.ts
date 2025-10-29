@@ -25,22 +25,22 @@ const app: {
 } = {
     data: null,
     pb_config: {
-        baseURL: (process.env).PB_URL || 'http://127.0.0.1:8090',
+        baseURL: process.env.PB_URL || 'http://127.0.0.1:8090',
         userInfo: {
-            email: (process.env).PB_EMAIL || 'your-email@example.com',
-            password: (process.env).PB_PASSWORD || 'your-password',
+            email: process.env.PB_EMAIL || 'your-email@example.com',
+            password: process.env.PB_PASSWORD || 'your-password',
             isAdmin: true,
         },
     },
 };
 
 (async () => {
-    if ((process.env).DEMO_VAR === undefined) {
+    if (process.env.DEMO_VAR === undefined) {
         alert('请配置环境变量文件 .env.dev');
         _log('DEMO_VAR 未定义，请配置环境变量文件 .env.dev');
         return;
     } else {
-        _log('DEMO_VAR:', (process.env).DEMO_VAR);
+        _log('DEMO_VAR:', process.env.DEMO_VAR);
     }
     const config = app.pb_config;
 
