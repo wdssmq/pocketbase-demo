@@ -6,8 +6,9 @@
     "type": "module",
     "extractCSS": true,
     "scripts": {
-        "build": "rollup -c --environment NODE_ENV:prod",
+        "build": "pnpm clear && rollup -c --environment NODE_ENV:prod",
         "dev": "rollup -c -w --environment NODE_ENV:dev",
+        "clear": "rm -rf dist-test dist",
         "type-check": "tsc --noEmit",
         "lint": "eslint --ext .js,.mjs,.ts ."
     },
