@@ -10,7 +10,7 @@ import typescript from '@rollup/plugin-typescript';
 // import copy from "rollup-plugin-copy";
 // import html from "rollup-plugin-html-string";
 // import md from "rollup-plugin-md";
-import resolve from "@rollup/plugin-node-resolve";
+// import resolve from "@rollup/plugin-node-resolve";
 
 import replace from "@rollup/plugin-replace";
 import dotenv from "dotenv";
@@ -45,7 +45,7 @@ const defConfig = {
             "process.env.PB_EMAIL": JSON.stringify(process.env.PB_EMAIL),
             "process.env.PB_PASSWORD": JSON.stringify(process.env.PB_PASSWORD),
         }),
-        resolve(),
+        // resolve(),
         // md(),
         // html({
         //     include: "src/**/*.html",
