@@ -30,3 +30,24 @@ docker-compose up -d
 > muchobien/pocketbase-docker: Pocketbase docker image
 >
 > [https://github.com/muchobien/pocketbase-docker](https://github.com/muchobien/pocketbase-docker "muchobien/pocketbase-docker: Pocketbase docker image")
+
+## 前端示例
+
+
+```bash
+# 进入前端目录
+cd lib-pocket-base
+
+# 安装依赖
+pnpm install
+
+# 环境变量配置，写入地址及管理信息
+cp .env.dev.sample .env.dev
+
+# !!!!
+# 重要：在本 demo 中，管理信息会写入前端代码中，请勿在生产环境中这么做
+
+# 启动服务
+pnpm dev
+
+```
