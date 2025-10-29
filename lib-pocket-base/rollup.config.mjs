@@ -5,6 +5,7 @@ const pkg = JSON.parse(readFileSync("./package.json"));
 import livereload from "rollup-plugin-livereload";
 import postcss from "rollup-plugin-postcss";
 import serve from "rollup-plugin-serve";
+import typescript from '@rollup/plugin-typescript';
 
 // import copy from "rollup-plugin-copy";
 // import html from "rollup-plugin-html-string";
@@ -22,15 +23,17 @@ const envFile = process.env.NODE_ENV === 'prod' ? '.env.prod' : '.env.dev';
 dotenv.config({ path: envFile });
 
 const defConfig = {
-    input: `src/${pkg.name}.js`,
+    input: `src/${pkg.name}.ts`,
     output: {
         file: pkg.main,
         format: "umd",
         name: pkg.moduleName,
         banner: "/* eslint-disable */\n",
-        // sourcemap: true,
+        sourcemap: true,
     },
     plugins: [
+        // 先用 typescript 插件把 TS 转为 JS
+        typescript({ tsconfig: './tsconfig.json' }),
         postcss({
             extract: extractCSS,
         }),
