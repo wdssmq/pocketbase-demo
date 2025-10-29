@@ -17,6 +17,18 @@ function _log(...args) {
     document.querySelector("#log").innerHTML += `${rlt}<br>`;
 }
 
+const app = {
+    data: null,
+    pb_config: {
+        baseURL: process.env.PB_URL || "http://127.0.0.1:8090",
+        userInfo: {
+            email: process.env.PB_EMAIL || 'your-email@example.com',
+            password: process.env.PB_PASSWORD || 'your-password',
+            isAdmin: true
+        }
+    },
+};
+
 
 (async () => {
     if (process.env.DEMO_VAR === undefined) {
@@ -26,14 +38,7 @@ function _log(...args) {
     } else {
         _log("DEMO_VAR:", process.env.DEMO_VAR);
     }
-    const config = {
-        baseURL: process.env.PB_URL || "http://127.0.0.1:8090",
-        userInfo: {
-            email: process.env.PB_EMAIL || 'your-email@example.com',
-            password: process.env.PB_PASSWORD || 'your-password',
-            isAdmin: true
-        }
-    };
+    const config = app.pb_config
 
     try {
         // 创建实例（会自动登录）
