@@ -1,4 +1,4 @@
-import PocketBaseCore, { UserInfo } from './core';
+import PocketBaseCore, { UserInfo } from './lib-core/core';
 
 import './style/style.sass';
 
