@@ -17,10 +17,15 @@ function _log(...args) {
     document.querySelector("#log").innerHTML += `${rlt}<br>`;
 }
 
-console.log("lib-pocket-base.js");
-console.log("DEMO_VAR:", process.env.DEMO_VAR);
 
 (async () => {
+    if (process.env.DEMO_VAR === undefined) {
+        alert("请配置环境变量文件 .env.dev");
+        _log("DEMO_VAR 未定义，请配置环境变量文件 .env.dev");
+        return;
+    } else {
+        _log("DEMO_VAR:", process.env.DEMO_VAR);
+    }
     const config = {
         baseURL: process.env.PB_URL || "http://127.0.0.1:8090",
         userInfo: {
