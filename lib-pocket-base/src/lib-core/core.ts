@@ -6,11 +6,28 @@ export type UserInfo = {
     isAdmin?: boolean;
 };
 
+export type Error = {
+    status: number;
+    code: number;
+    message: string;
+};
+
 class PocketBaseCore {
     pb: PocketBase;
     userInfo: UserInfo;
     autoLogin: boolean;
     authData: RecordAuthResponse | null = null;
+
+    error: Error | null = null;
+
+    errorHandler(error: any) {
+        this.error = {
+            status: error?.status || 500,
+            code: error?.code || -1,
+            message: error?.message || '未知错误',
+        };
+        console.error('错误:', error);
+    }
 
     constructor (baseURL: string, userInfo: UserInfo, autoLogin = false) {
         this.pb = new PocketBase(baseURL);
@@ -47,7 +64,8 @@ class PocketBaseCore {
 
             return authData;
         } catch (error: any) {
-            throw new Error(`登录失败: ${error?.message || String(error)}`);
+            this.errorHandler(error);
+            return Promise.reject(this.error);
         }
     }
 
