@@ -55,7 +55,7 @@ const coreConfig = {
     input: 'src/lib-core/core.ts',
     output: {
         file: pkg.main,
-        format: 'umd',
+        // format: 'umd',
         name: 'libPocketBase',
         banner: "/* eslint-disable */\n",
         sourcemap: true,
@@ -65,6 +65,7 @@ const coreConfig = {
         mv({
             src: 'dist/core.d.ts',
             dest: pkg.types,
+            overwrite: true,
         }),
     ],
 };
