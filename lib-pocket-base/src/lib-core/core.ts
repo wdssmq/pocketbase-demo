@@ -83,6 +83,16 @@ class PocketBaseCore {
         };
     }
 
+    async getFirstListItem(collection: string, filter: string): Promise<any> {
+        try {
+            const record = await this.pb.collection(collection).getFirstListItem(filter);
+            return record;
+        } catch (error: any) {
+            this.errorHandler(error);
+            return Promise.reject(this.error);
+        }
+    }
+
     logDev(...args: any[]) {
         if ('dev' === process.env.NODE_ENV) {
             // eslint-disable-next-line no-console
