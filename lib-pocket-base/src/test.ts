@@ -44,16 +44,12 @@ const app: {
     }
     const config = app.pb_config;
 
-    try {
-        const pbCore = new PocketBaseCore(config.baseURL, config.userInfo, true);
+    const pbCore = new PocketBaseCore(config.baseURL, config.userInfo, true);
 
-        // 等待初始化完成（保留原逻辑）
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+    // 等待初始化完成
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        _log('初始化完成');
-        _log('认证状态:', pbCore.getAuthStatus());
-    } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('操作失败:', error);
-    }
+    _log('初始化完成');
+    _log('认证状态:', pbCore.getAuthStatus());
+
 })();
