@@ -58,11 +58,10 @@ class PocketBaseCore {
     }
 
     getAuthStatus() {
-        this.logDev(this.pb.authStore.record);
-
         return {
             isValid: this.pb.authStore.isValid,
             token: this.pb.authStore.token,
+            record: this.pb.authStore.record,
         };
     }
 
