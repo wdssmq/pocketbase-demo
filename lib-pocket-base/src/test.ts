@@ -52,4 +52,10 @@ const app: {
     _log('初始化完成');
     _log('认证状态:', pbCore.getAuthStatus());
 
+    pbCore.getFirstListItem('users', 'email="demo@demo.com"').then((data) => {
+        _log('获取数据:', data);
+    }).catch((error) => {
+        _log('获取数据失败:', error);
+    });
+
 })();
