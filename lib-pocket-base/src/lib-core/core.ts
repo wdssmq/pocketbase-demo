@@ -26,7 +26,7 @@ class PocketBaseCore {
             code: error?.code || -1,
             message: error?.message || '未知错误',
         };
-        console.error('错误:', error);
+        this.logDev('错误:', error);
     }
 
     constructor (baseURL: string, userInfo: UserInfo, autoLogin = false) {
