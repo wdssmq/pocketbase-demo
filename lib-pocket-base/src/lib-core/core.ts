@@ -93,6 +93,26 @@ class PocketBaseCore {
         }
     }
 
+    async createRecord(collection: string, data: any): Promise<any> {
+        try {
+            const record = await this.pb.collection(collection).create(data);
+            return record;
+        } catch (error: any) {
+            this.errorHandler(error);
+            return Promise.reject(this.error);
+        }
+    }
+
+    async updateRecord(collection: string, recordId: string, data: any): Promise<any> {
+        try {
+            const record = await this.pb.collection(collection).update(recordId, data);
+            return record;
+        } catch (error: any) {
+            this.errorHandler(error);
+            return Promise.reject(this.error);
+        }
+    }
+
     logDev(...args: any[]) {
         if ('dev' === process.env.NODE_ENV) {
             // eslint-disable-next-line no-console
