@@ -20,6 +20,9 @@ class PocketBaseCore {
 
     error: Error | null = null;
 
+    private batchOperations: Array<{ type: 'create'; collection: string; data: any }> = [];
+    private curBatchCollection: string | null = null;
+
     errorHandler(error: any) {
         this.error = {
             status: error?.status || 500,
@@ -118,6 +121,48 @@ class PocketBaseCore {
             // eslint-disable-next-line no-console
             console.log(...args);
         }
+    }
+
+    // 初始化批量任务
+    initBatch(collection: string) {
+        this.curBatchCollection = collection;
+        this.batchOperations = [];
+        return this;
+    }
+
+    // 批量任务 pbCore->batch()->create({..})
+    batch() {
+        if (!this.curBatchCollection) {
+            throw new Error('Batch operation not initialized.')
+        }
+        const collection = this.curBatchCollection;
+        return new CollectionBatch(collection, this.batchOperations);
+    }
+
+    // 提交任务
+    async sendBatch() {
+        if (this.batchOperations.length === 0) {
+            this.errorHandler(new Error('No batch operations to send.'));
+            return this.error;
+        }
+        const batch = this.pb.createBatch();
+        for (const op of this.batchOperations) {
+            if (op.type === 'create') {
+                batch.collection(op.collection).create(op.data);
+            }
+        }
+        const result = await batch.send();
+        this.batchOperations = [];
+        this.curBatchCollection = null;
+        return result;
+    }
+}
+
+class CollectionBatch {
+    constructor (private collection: string, private operations: any[]) { }
+    create(data: Record<string, any>) {
+        this.operations.push({ type: 'create', collection: this.collection, data });
+        return this;
     }
 }
 
