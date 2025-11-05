@@ -96,6 +96,20 @@ class PocketBaseCore {
         }
     }
 
+    async getList(collection: string, page: number = 1, perPage: number = 50, options: { filter?: string; sort?: string } = {}): Promise<any> {
+        try {
+            const { filter, sort } = options;
+            const result = await this.pb.collection(collection).getList(page, perPage, {
+                filter,
+                sort,
+            });
+            return result;
+        } catch (error: any) {
+            this.errorHandler(error);
+            return Promise.reject(this.error);
+        }
+    }
+
     async createRecord(collection: string, data: any): Promise<any> {
         try {
             const record = await this.pb.collection(collection).create(data);
