@@ -29,6 +29,7 @@ const defConfig = {
         banner: '/* eslint-disable */\n',
         sourcemap: true,
     },
+    external: ['pocketbase'],
     plugins: [
         // 先用 typescript 插件把 TS 转为 JS
         typescript({ tsconfig: './tsconfig.json' }),
