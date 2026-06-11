@@ -1,16 +1,17 @@
-import PocketBase, { RecordAuthResponse } from 'pocketbase';
+import type { RecordAuthResponse } from 'pocketbase';
+import PocketBase from 'pocketbase';
 
-export type UserInfo = {
-    email: string;
-    password: string;
-    isAdmin?: boolean;
-};
+export interface UserInfo {
+    email: string
+    password: string
+    isAdmin?: boolean
+}
 
-export type Error = {
-    status: number;
-    code: number;
-    message: string;
-};
+export interface Error {
+    status: number
+    code: number
+    message: string
+}
 
 class PocketBaseCore {
     pb: PocketBase;
@@ -20,7 +21,7 @@ class PocketBaseCore {
 
     error: Error | null = null;
 
-    private batchOperations: Array<{ type: 'create'; collection: string; data: any }> = [];
+    private batchOperations: Array<{ type: 'create', collection: string, data: any }> = [];
     private curBatchCollection: string | null = null;
 
     errorHandler(error: any) {
@@ -32,7 +33,7 @@ class PocketBaseCore {
         this.logDev('错误:', error);
     }
 
-    constructor (baseURL: string, userInfo: UserInfo, autoLogin = false) {
+    constructor(baseURL: string, userInfo: UserInfo, autoLogin = false) {
         this.pb = new PocketBase(baseURL);
         this.userInfo = userInfo;
         this.autoLogin = autoLogin;
@@ -53,7 +54,7 @@ class PocketBaseCore {
             const collection = asAdmin ? '_superusers' : 'users';
             const authData = await this.pb.collection(collection).authWithPassword(
                 this.userInfo.email,
-                this.userInfo.password
+                this.userInfo.password,
             );
 
             if (!authData?.token) {
@@ -66,7 +67,8 @@ class PocketBaseCore {
             });
 
             return authData;
-        } catch (error: any) {
+        }
+        catch (error: any) {
             this.errorHandler(error);
             return Promise.reject(this.error);
         }
@@ -90,13 +92,14 @@ class PocketBaseCore {
         try {
             const record = await this.pb.collection(collection).getFirstListItem(filter);
             return record;
-        } catch (error: any) {
+        }
+        catch (error: any) {
             this.errorHandler(error);
             return Promise.reject(this.error);
         }
     }
 
-    async getList(collection: string, page: number = 1, perPage: number = 50, options: { filter?: string; sort?: string } = {}): Promise<any> {
+    async getList(collection: string, page: number = 1, perPage: number = 50, options: { filter?: string, sort?: string } = {}): Promise<any> {
         try {
             const { filter, sort } = options;
             const result = await this.pb.collection(collection).getList(page, perPage, {
@@ -104,7 +107,8 @@ class PocketBaseCore {
                 sort,
             });
             return result;
-        } catch (error: any) {
+        }
+        catch (error: any) {
             this.errorHandler(error);
             return Promise.reject(this.error);
         }
@@ -114,7 +118,8 @@ class PocketBaseCore {
         try {
             const record = await this.pb.collection(collection).create(data);
             return record;
-        } catch (error: any) {
+        }
+        catch (error: any) {
             this.errorHandler(error);
             return Promise.reject(this.error);
         }
@@ -124,14 +129,15 @@ class PocketBaseCore {
         try {
             const record = await this.pb.collection(collection).update(recordId, data);
             return record;
-        } catch (error: any) {
+        }
+        catch (error: any) {
             this.errorHandler(error);
             return Promise.reject(this.error);
         }
     }
 
     logDev(...args: any[]) {
-        if ('dev' === process.env.NODE_ENV) {
+        if (process.env.NODE_ENV === 'dev') {
             // eslint-disable-next-line no-console
             console.log(...args);
         }
@@ -147,7 +153,7 @@ class PocketBaseCore {
     // 批量任务 pbCore->batch()->create({..})
     batch() {
         if (!this.curBatchCollection) {
-            throw new Error('Batch operation not initialized.')
+            throw new Error('Batch operation not initialized.');
         }
         const collection = this.curBatchCollection;
         return new CollectionBatch(collection, this.batchOperations);
@@ -173,7 +179,7 @@ class PocketBaseCore {
 }
 
 class CollectionBatch {
-    constructor (private collection: string, private operations: any[]) { }
+    constructor(private collection: string, private operations: any[]) { }
     create(data: Record<string, any>) {
         this.operations.push({ type: 'create', collection: this.collection, data });
         return this;

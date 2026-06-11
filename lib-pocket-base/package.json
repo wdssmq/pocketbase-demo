@@ -1,10 +1,17 @@
 {
   "name": "lib-pocket-base",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
+  "author": "wdssmq",
+  "license": "MIT",
+  "keywords": [
+    "lib",
+    "scripts",
+    "lib-scripts"
+  ],
   "main": "dist/lib-pocket-base.js",
   "types": "dist/lib-pocket-base.d.ts",
-  "type": "module",
   "extractCSS": true,
   "scripts": {
     "build": "pnpm clear && rollup -c --environment NODE_ENV:prod",
@@ -14,19 +21,15 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix"
   },
-  "keywords": [
-    "lib",
-    "scripts",
-    "lib-scripts"
-  ],
-  "author": "wdssmq",
-  "license": "MIT",
   "devDependencies": {
+    "@antfu/eslint-config": "^9.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-replace": "^6.0.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^25.9.3",
     "dotenv": "^17.4.2",
+    "eslint": "^10.3.0",
+    "eslint-plugin-format": "^2.0.1",
     "pocketbase": "^0.27.0",
     "rollup": "^4.61.1",
     "rollup-plugin-copy": "^3.5.0",
@@ -37,9 +40,6 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-serve": "^3.0.0",
     "sass": "^1.100.0",
-    "typescript": "^5.9.3",
-    "@antfu/eslint-config": "^9.0.0",
-    "eslint": "^10.3.0",
-    "eslint-plugin-format": "^2.0.1"
+    "typescript": "^5.9.3"
   }
 }
