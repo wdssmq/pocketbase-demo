@@ -30,7 +30,7 @@ const defConfig = {
     },
     plugins: [
         // 先用 typescript 插件把 TS 转为 JS
-        typescript({ tsconfig: './tsconfig.test.json' }),
+        typescript({ tsconfig: './tsconfig.json' }),
         postcss({
             extract: "test.css",
         }),

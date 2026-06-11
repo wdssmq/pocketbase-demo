@@ -5,7 +5,7 @@
     "declaration": true,
     // "declarationDir": "dist/types",
     // "sourceMap": true,
-    "rootDir": "./src/lib-core",
+    "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,6 +16,10 @@
     // "skipLibCheck": true,
     "allowJs": false
   },
-  "include": ["src/lib-core/*.ts"],
+  "include": [
+    "src/lib-core/*.ts",
+    "src/test.ts",
+    "src/style-modules.d.ts"
+  ],
   "exclude": ["dist", "dist-test", "node_modules"]
 }
