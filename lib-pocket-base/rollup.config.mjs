@@ -1,6 +1,7 @@
 // import pkg from "./package.json" assert {type: 'json'};
 import { readFileSync } from 'node:fs';
 
+import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import typescript from '@rollup/plugin-typescript';
 import dotenv from 'dotenv';
@@ -10,7 +11,6 @@ import mv from 'rollup-plugin-mv';
 // import copy from "rollup-plugin-copy";
 // import html from "rollup-plugin-html-string";
 // import md from "rollup-plugin-md";
-// import resolve from "@rollup/plugin-node-resolve";
 
 import postcss from 'rollup-plugin-postcss';
 import serve from 'rollup-plugin-serve';
@@ -30,7 +30,7 @@ const defConfig = {
         sourcemap: true,
     },
     plugins: [
-    // 先用 typescript 插件把 TS 转为 JS
+        // 先用 typescript 插件把 TS 转为 JS
         typescript({ tsconfig: './tsconfig.json' }),
         postcss({
             extract: 'test.css',
@@ -43,11 +43,11 @@ const defConfig = {
             'process.env.PB_EMAIL': JSON.stringify(process.env.PB_EMAIL),
             'process.env.PB_PASSWORD': JSON.stringify(process.env.PB_PASSWORD),
         }),
-    // resolve(),
-    // md(),
-    // html({
-    //     include: "src/**/*.html",
-    // }),
+        resolve(),
+        // md(),
+        // html({
+        //     include: "src/**/*.html",
+        // }),
     ],
 };
 
@@ -61,8 +61,9 @@ const coreConfig = {
         banner: '/* eslint-disable */\n',
         sourcemap: true,
     },
+    external: ['pocketbase'],
     plugins: [
-        typescript({ tsconfig: './tsconfig.json' }),
+        typescript({ tsconfig: './tsconfig.core.json' }),
         mv({
             src: 'dist/core.d.ts',
             dest: pkg.types,
@@ -74,7 +75,9 @@ const coreConfig = {
 if (process.env.NODE_ENV !== 'prod') {
     defConfig.plugins.push(
         serve(),
-        livereload(),
+        livereload({
+            watch: ['src'],
+        }),
     );
 }
 

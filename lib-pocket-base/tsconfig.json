@@ -8,12 +8,13 @@
     // "esModuleInterop": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     // "skipLibCheck": true,
     "allowJs": false,
     "strict": true,
-    "declaration": true,
-    "outDir": "./dist",
+    "outDir": "./dist-test",
     "forceConsistentCasingInFileNames": true
   },
   "include": [
@@ -21,5 +22,9 @@
     "src/test.ts",
     "src/style-modules.d.ts"
   ],
-  "exclude": ["dist", "dist-test", "node_modules"]
+  "exclude": [
+    "dist",
+    "dist-test",
+    "node_modules"
+  ]
 }
